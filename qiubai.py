@@ -39,7 +39,7 @@ def download_qbcr(frm=1, page_count=1, save_dir='./'):
         down_page_images(x, save_dir)
 
 def main():
-    base_path = 'C:/temp/qiubai/'
+    base_path = '/qiubai/'
     download_qbcr(frm=1, page_count=10, save_dir=base_path)
 
 if __name__ == '__main__':
