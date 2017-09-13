@@ -2,13 +2,14 @@
 
 import urllib
 from bs4 import BeautifulSoup
+import os
 
 debug = True # 设置是否打印log
 def log(message):
     if debug:
-        print message
+        print (message)
 
-def download_image(url, save_path): 
+def download_image(url, save_path):
     ''' 根据图片url下载图片到save_path '''
     try:
         urllib.urlretrieve(url, save_path)
@@ -31,15 +32,18 @@ def down_page_images(page, save_dir):
             alt = img_tag.attrs['alt'] # 图片的介绍
             src = img_tag.attrs['src'] # 图片的地址
             filename = '%s%s' % (alt, src[-4:]) # 取后四位（有的图片后缀是'.jpg'而有的是'.gif'）
+            print('===============save_dir' +save_dir+filename+"\n")
             download_image(src, save_dir + filename)
 
 def download_qbcr(frm=1, page_count=1, save_dir='./'):
     for x in xrange(frm, frm + page_count):
         log('Page : ' + `x`)
+
         down_page_images(x, save_dir)
 
 def main():
-    base_path = '/qiubai/'
+    base_path = os.path.abspath('.')
+    base_path = base_path+'/qiubai/'
     download_qbcr(frm=1, page_count=10, save_dir=base_path)
 
 if __name__ == '__main__':
